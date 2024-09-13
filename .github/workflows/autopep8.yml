@@ -22,5 +22,5 @@ jobs:
         pip install -r requirements.txt
     - name: Run autopep
       run: |
-        autopep8 hw2_debugging.py > post_traces/autopep8_hw2_debugging_trace.txt
-        autopep8 rand.py > post_traces/autopep8_rand_trace.txt
+        autopep8 --exit-code hw2_debugging.py
+        autopep8 --exit-code rand.py

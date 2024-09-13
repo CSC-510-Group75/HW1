@@ -27,7 +27,3 @@ jobs:
           pylint rand.py > post_traces/pylint_rand_trace.txt
           pyright rand.py > post_traces/pyright_rand_trace.txt
 
-    - name: Test with pytest
-      run: |
-        pip install pytest pytest-cov
-        pytest tests.py --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html

@@ -22,5 +22,5 @@ jobs:
         pip install -r requirements.txt
     - name: Run autopep
       run: |
-        pyright hw2_debugging.py > post_traces/pyright_hw2_debugging_trace.txt
-        pyright rand.py > post_traces/pyright_rand_trace.txt
+        pyright hw2_debugging.py
+        pyright rand.py

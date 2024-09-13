@@ -7,14 +7,32 @@ jobs:
       - uses: actions/checkout@v2
       - name: autopep8
         uses: peter-evans/autopep8@v2
-        with:
-          args: --recursive --in-place --aggressive --aggressive .
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
-        with:
-          commit-message: autopep8 action fixes
-          title: Fixes by autopep8 action
-          body: This is an auto-generated PR with fixes by autopep8.
-          labels: autopep8, automated pr
-          reviewers: peter-evans
-          branch: autopep8-patches
+        with:on : push
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.13"]
+        
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Static Analysis Tools
+      run: | 
+          autopep8 hw2_debugging.py > post_traces/autopep8_hw2_debugging_trace.txt
+          pylint hw2_debugging.py > post_traces/pylint_hw2_debugging_trace.txt
+          pyright hw2_debugging.py > post_traces/pyright_hw2_debugging_trace.txt
+          autopep8 rand.py > post_traces/autopep8_rand_trace.txt
+          pylint rand.py > post_traces/pylint_rand_trace.txt
+          pyright rand.py > post_traces/pyright_rand_trace.txt
+
